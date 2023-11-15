@@ -1,14 +1,18 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
-import {notStartedArr, inProgressArr, doneArr} from "@/components/taskListsStore";
+import {taskArr, notStartedArr, inProgressArr, doneArr} from "@/components/taskListsStore";
 
 const newTaskTitle = ref("")
 const newTaskDescription = ref("")
 
 const addTask = ()=> {
-  notStartedArr.value.push({title:newTaskTitle.value,description:newTaskDescription.value})
-  newTaskTitle.value = ""
-  newTaskDescription.value = ""
+  taskArr.value.push({
+    id:taskArr.value.length +1,
+    list:"notStartedArr",
+    title:newTaskTitle.value,
+    description:newTaskDescription.value})
+    newTaskTitle.value = ""
+    newTaskDescription.value = ""
 }
 </script>
 
@@ -31,6 +35,7 @@ const addTask = ()=> {
               v-if="newTaskTitle.length > 0"
               v-model="newTaskDescription"
               type="text"
+              :style="{ 'overflow-wrap': 'break-word' }"
               placeholder="Input a description of the task here"
           />
         </div>

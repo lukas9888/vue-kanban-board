@@ -1,6 +1,12 @@
 <script lang="ts" setup>
-import {notStartedArr, inProgressArr, doneArr} from "@/components/taskListsStore";
+import {taskArr, notStartedArr, inProgressArr, doneArr} from "@/components/taskListsStore";
 import draggable from "vuedraggable"
+const getFilteredList = (list) => {
+  return taskArr.value.filter((task) => task.list == list)
+}
+const startDrag = (event, item) => {
+  {}
+}
 </script>
 
 <template>
@@ -10,11 +16,13 @@ import draggable from "vuedraggable"
       <v-col class="bg-color-not-started">
         <h2 class="ma-5">Not started</h2>
         <v-card
-            v-for="task in notStartedArr"
+            v-for="task in getFilteredList('notStartedArr')"
             :key="task"
             class="ma-5 pa-5"
             :title=task.title
-            :subtitle=task.description>
+            :subtitle=task.description
+            draggable="true"
+        >
         </v-card>
       </v-col>
       <v-col class="bg-color-in-progress">
